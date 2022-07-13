@@ -1,2 +1,5 @@
 # DatabaseFinallyAssignment
-数据库课设。
+
+# By Flask
+
+# [The blog]()
