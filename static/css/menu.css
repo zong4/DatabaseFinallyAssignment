@@ -1,0 +1,28 @@
+body{
+    background: url("/img/park.jpeg") no-repeat ;
+    background-size: cover;
+}
+
+*{
+    padding: 0;
+    margin: 0 0 10px 0;
+}
+
+main{
+    margin-top: 0 ;
+    background: #353f42;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+div{
+    width:80px;
+    height:40px;
+    line-height: 40px;
+    text-align: center;
+    background:#353f42;
+}
+a{
+    color:white;
+}

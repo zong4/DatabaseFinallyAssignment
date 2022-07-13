@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Newspapers</title>
+
+    <link rel="stylesheet" href="/static/css/newspapers.css" type="text/css"/>
+    <link rel="stylesheet" href="/static/css/global.css" type="text/css"/>
+
+    <style type="text/css">
+        table
+        {
+            border-collapse: collapse;
+            margin: 0 auto;
+            text-align: center;
+        }
+        table td, table th
+        {
+            border: 1px solid #cad9ea;
+            color: #666;
+            height: 30px;
+        }
+        table thead th
+        {
+            background-color: #CCE8EB;
+            width: 100px;
+        }
+        table tr:nth-child(odd)
+        {
+            background: #fff;
+        }
+        table tr:nth-child(even)
+        {
+            background: #F5FAFA;
+        }
+    </style>
+
+</head>
+<body>
+    <div class = "wrapper">
+
+        <!-- 导航栏 -->
+        <div class = "nav">
+            <div class = "logo">
+                <h4>报刊订阅管理系统</h4>
+            </div>
+            <div class = "links">
+                <a href = "newspapers" class = "mainlink">Newspapers</a>
+                <a href = "subscribe">Subscribe</a>
+                <a href = "users">Users</a>
+                <a href = "login">Login</a>
+                <a href = "logout">Logout</a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 蒙版 -->
+    <div class="mask" id="mask" style="display: none;">
+    </div>
+
+    <table width="90%" class="table" style="margin-top: 100px;">
+        <caption>
+            <h2 style="margin-top: 30px;margin-bottom: 30px;">Newspapers</h2>
+        </caption>
+        <thead>
+            <tr>
+                <th>
+                    ID
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Kind
+                </th>
+                <th>
+                    Update Time
+                </th>
+                <th>
+                    Price
+                </th>
+                <th>
+                    Copies
+                </th>
+                <th>
+                    Action
+                </th>
+            </tr>
+        </thead>
+
+<!--        添加一行-->
+        <tr>
+            <td colspan="7" style="width: 100%;" name='add' onclick="Add()" class="interAction" id="addButton" style="display: float;">
+                <a>+ Add +</a>
+            </td>
+        </tr>
+
+        {% for newspaper in newspapers %}
+        <tr>
+            <td>
+                {{ newspaper[0] }}
+            </td>
+            <td>
+                {{ newspaper[1] }}
+            </td>
+            <td>
+                {{ newspaper[2] }}
+            </td>
+            <td>
+                {{ newspaper[3] }}
+            </td>
+            <td>
+                {{ newspaper[4] }}
+            </td>
+            <td>
+                {{ newspaper[5] }}
+            </td>
+            <td>
+                <button type="submit" name='update' value={{ newspaper[0] }} onclick="Update()" class="interAction" id="updateButton" style="display: float;">Update</button>
+                <button type="submit" name='delete' value={{ newspaper[0] }} onclick="Delete()" class="interAction" id="deleteButton" style="display: float;">Delete</button>
+                <button type="submit" name='subscribe' value={{ newspaper[0] }} onclick="Subscribe()" class="interAction" id="subscribeButton" style="display: float;">Subscribe</button>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <script type="text/javascript">
+        function Add()
+        {
+            var mask = document.getElementById("mask");
+            mask.style.display = 'inherit';
+
+            var form = document.getElementById("form");
+            form.style.display = 'block';
+
+            var add = document.getElementById("add");
+            add.style.display = 'block';
+            var update = document.getElementById("update");
+            update.style.display = 'none';
+        }
+        function NotAdd()
+        {
+            var form = document.getElementById("form");
+            form.style.display = 'none';
+
+            var mask = document.getElementById("mask");
+            mask.style.display = 'none';
+        }
+
+        function Update()
+        {
+            var mask = document.getElementById("mask");
+            mask.style.display = 'inherit';
+
+            var form = document.getElementById("form");
+            form.style.display = 'block';
+
+            var add = document.getElementById("add");
+            add.style.display = 'none';
+            var update = document.getElementById("update");
+            update.style.display = 'block';
+
+            // 获取旧的
+            button = window.event.target;
+            name = button.parentElement.parentElement.children[1].innerText;
+            kind = button.parentElement.parentElement.children[2].innerText;
+            updateTime = button.parentElement.parentElement.children[3].innerText;
+            price = button.parentElement.parentElement.children[4].innerText;
+            copies = button.parentElement.parentElement.children[5].innerText;
+
+            // 返回ID
+            update.value = button.parentElement.parentElement.children[0].innerText;
+
+            form.children[2].children[0].children[0].children[0].value = name;
+            form.children[2].children[0].children[1].children[0].value = price;
+            form.children[2].children[0].children[2].children[0].value = copies;
+
+            switch(kind)
+            {
+                case "News":
+                    form.children[2].children[0].children[3].children[0].checked = true;
+                    break;
+                case "Financial":
+                    form.children[2].children[0].children[3].children[1].checked = true;
+                    break;
+                case "Sports":
+                    form.children[2].children[0].children[3].children[2].checked = true;
+                    break;
+                default:
+                    form.children[2].children[0].children[3].children[3].checked = true;
+                    break;
+            }
+
+            switch(updateTime)
+            {
+                case "Day":
+                    form.children[2].children[0].children[4].children[0].checked = true;
+                    break;
+                case "Mouth":
+                    form.children[2].children[0].children[4].children[1].checked = true;
+                    break;
+                case "Season":
+                    form.children[2].children[0].children[4].children[2].checked = true;
+                    break;
+                case "Year":
+                    form.children[2].children[0].children[4].children[3].checked = true;
+                    break;
+            }
+        }
+
+        function Delete()
+        {
+            var mask = document.getElementById("mask");
+            mask.style.display = 'inherit';
+
+            var sureBox = document.getElementById("sureBox");
+            sureBox.style.display = 'block';
+
+            var deleteQues = document.getElementById("deleteQues");
+            deleteQues.style.display = 'block';
+            var subscribeQues = document.getElementById("subscribeQues");
+            subscribeQues.style.display = 'none';
+
+            var delID = document.getElementById("delID");
+            // 获取旧的
+            button = window.event.target;
+            // 返回ID
+            delID.value = button.parentElement.parentElement.children[0].innerText;
+        }
+        function CloseSureBox()
+        {
+            var sureBox = document.getElementById("sureBox");
+            sureBox.style.display = 'none';
+
+            var mask = document.getElementById("mask");
+            mask.style.display = 'none';
+        }
+
+        function Subscribe()
+        {
+            var mask = document.getElementById("mask");
+            mask.style.display = 'inherit';
+
+            var sureBox = document.getElementById("sureBox");
+            sureBox.style.display = 'block';
+
+            var deleteQues = document.getElementById("deleteQues");
+            deleteQues.style.display = 'none';
+            var subscribeQues = document.getElementById("subscribeQues");
+            subscribeQues.style.display = 'block';
+
+            var delID = document.getElementById("delID");
+            delID.name = "subID";
+            // 获取旧的
+            button = window.event.target;
+            // 返回ID
+            delID.value = button.parentElement.parentElement.children[0].innerText;
+        }
+    </script>
+
+<!-- 删除确认 -->
+<div class="main" id="sureBox" style="display: none;z-index: 2;">
+    <div class="formtitle" style="text-align: center;display: block;" id="deleteQues">
+        <span>Are you sure to delete?</span>
+    </div>
+    <div class="formtitle" style="text-align: center;display: block;" id="subscribeQues">
+        <span>Are you sure to subscribe?</span>
+    </div>
+
+    <form class="login-form" method="post" name="user">
+        <div>
+            <input type="text" name="delID" id="delID" value="" style="display: none;"/>
+            <button type="submit" class="enter-btn" name="yes" value="yes" onclick="CloseSureBox()">Yes</button>
+            <button type="submit" class="enter-btn" name="no" value="no" onclick="CloseSureBox()">No</button>
+        </div>
+    </form>
+</div>
+
+<!-- 表单 -->
+<div class="main" id="form" style="display: none;z-index: 2;">
+
+    <a style="float: right;font-size: 20px;margin-top: 0;" onclick="NotAdd()" class="interAction">×</a>
+
+    <div class="formtitle" style="text-align: center;">
+        <span>Form</span>
+    </div>
+
+    <form class="login-form" method="post" name="user">
+        <!--输入框-->
+        <div class="input-content">
+            <!--autoFocus-->
+            <div>
+                <input type="text" autocomplete="off"
+                       placeholder="Name" name="name" required/>
+            </div>
+            <div>
+                <input type="text" autocomplete="off"
+                       placeholder="Price" name="price" required/>
+            </div>
+            <div>
+                <input type="text" autocomplete="off"
+                       placeholder="Copies" name="copies" required oninput = "value=value.replace(/[^\d]/g,'')"/>
+            </div>
+            <div class="special">
+                <input type="radio" name="kind" value="News">News
+                <input type="radio" name="kind" value="Financial">Financial
+                <input type="radio" name="kind" value="Sports">Sports
+                <input type="radio" name="kind" value="Others" checked="checked">Others
+            </div>
+            <div class="special">
+                <input type="radio" name="updateTime" value="Day">Day
+                <input type="radio" name="updateTime" value="Mounth" checked="checked">Mouth
+                <input type="radio" name="updateTime" value="Season">Season
+                <input type="radio" name="updateTime" value="Year">Year
+            </div>
+        </div>
+
+        <!--登入按钮-->
+        <div>
+            <button type="submit" class="enter-btn" name="add" value="add" style="display: none;" id="add">Add</button>
+            <button type="submit" class="enter-btn" name="update" value="update" style="display: none;" id="update">Update</button>
+        </div>
+    </form>
+</div>
+
+{% for message in get_flashed_messages() %}
+    <div id=flash hidden>{{ message }}</div>
+{% endfor %}
+<div id=session hidden>{{ user_info }}</div>
+</body>
+    <script src = "/static/js/newspapers.js" type = "text/javascript"></script>
+    <script src = "/static/js/Global.js" type = "text/javascript"></script>
+</html>

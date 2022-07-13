@@ -1,0 +1,109 @@
+/* 引入字体 */
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600&display=swap");
+
+
+/* 引入aos动画样式 */
+@import url("https://unpkg.com/aos@2.3.1/dist/aos.css");
+
+
+/* 全局设置 */
+html,body{
+    /* background-color: #fff; */
+    font-family: 'Source Sans Pro', sans-serif;
+    overflow-x: hidden !important;
+    margin: 0px !important;
+    padding: 0px !important;
+}
+*{
+    text-decoration: none !important;
+}
+
+
+/* 导航栏 */
+.nav{
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 80px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 25px 0 25px;
+    background-color: #fff;
+    box-shadow: 0 19px 38px rgba(0,0,0,0.10);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+/* 分支站点 */
+.nav .links a{
+    margin-right: 30px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #000;
+}
+.nav .links a:hover{
+    opacity: 60%;
+}
+.nav .links .mainlink{
+    margin-right: 40px;
+    color: #e0501b;
+}
+/* 左上标题 or Logo */
+.nav h4{
+    font-size: 22px;
+    font-weight: bold;
+    margin-left: 25px;
+}
+
+
+/* 页脚，放网站备案 */
+.footer{
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 20px;
+}
+.footerlinks a{
+    margin: 20px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #000;
+}
+.footerlinks .mainlink{
+    color: #e0501b;
+}
+
+
+/* 手机 */
+@media only screen and (max-width: 600px){
+
+    /* 导航栏 */
+    .nav{
+        flex-direction: column;
+        justify-content: space-around;
+        padding: 20px;
+        height: auto;
+        overflow-y: hidden;
+    }
+    
+    .nav h4{
+        font-size: 6vw;
+        margin-top: 10px;
+        margin-bottom: 14px;
+    }
+    
+    .nav .links a{
+        margin-right: 25px;
+        font-size: 12px;
+        font-weight: 600;
+    }
+
+    /* 页脚，放网站备案 */
+    .footer{
+        padding-bottom: 40px;
+    }
+}

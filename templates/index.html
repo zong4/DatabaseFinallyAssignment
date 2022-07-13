@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>File Upload</title>
+</head>
+
+<body>
+
+<a href="/logout">退出</a>
+
+<br/>{{is_success}}
+<br>
+<form action="http://localhost:5000/upload" method="POST" enctype="multipart/form-data">
+
+    <input type="file" name="file" multiple="multiple"
+           accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.csv,.doc,.docx">
+    <br>
+    <input type="submit" value="上传"/>
+</form>
+
+</body>
+
+</html>
